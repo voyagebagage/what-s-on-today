@@ -39,7 +39,9 @@ const SignInScreen = () => {
     <Theme name="dark">
       <YStack backgroundColor="white" minHeight="100%">
         <Image source={require('../assets/phangan.jpeg')} style={styles.logo} resizeMode="cover" />
-        <H1 color={'black'}>Phangan Today</H1>
+        <H1 color={'black'} alignSelf="center">
+          Phangan Today
+        </H1>
         <View style={styles.container}>
           <CustomInput
             name="email"

@@ -5,8 +5,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { TamaguiProvider, Theme, View } from 'tamagui';
 
 import config from '../tamagui.config';
-import useAuthStore from './stores/authStore';
-
+import { NhostClient, NhostProvider } from '@nhost/react';
+import * as SecureStore from 'expo-secure-store';
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
@@ -19,7 +19,12 @@ export default function RootLayout() {
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   });
-
+  const nhost = new NhostClient({
+    subdomain: 'yzsauenihltxnfkreksl',
+    region: 'ap-southeast-1',
+    clientStorageType: 'expo-secure-storage',
+    clientStorage: SecureStore,
+  });
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -28,13 +33,14 @@ export default function RootLayout() {
 
   if (!loaded) return null;
   return (
-    <TamaguiProvider config={config}>
-      <Theme name="dark">
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <Slot />
-          {/* {isAuthenticated ? <AuthLayout /> : <DrawerLayout />} */}
-        </GestureHandlerRootView>
-      </Theme>
-    </TamaguiProvider>
+    <NhostProvider nhost={nhost}>
+      <TamaguiProvider config={config}>
+        <Theme name="dark">
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Slot />
+          </GestureHandlerRootView>
+        </Theme>
+      </TamaguiProvider>
+    </NhostProvider>
   );
 }
