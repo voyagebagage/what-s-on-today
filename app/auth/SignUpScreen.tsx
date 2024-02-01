@@ -4,9 +4,8 @@ import CustomInput from '../components/customInput';
 import CustomButton from '../components/customButton';
 import SocialSignInButtons from '../components/socialSignInButtons';
 import { useForm } from 'react-hook-form';
-import { Link, router } from 'expo-router';
+import { router } from 'expo-router';
 import { Theme, YStack } from 'tamagui';
-// import {} from '@react-navigation/native';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 // type AuthNavigationParamList = {
@@ -24,14 +23,14 @@ const SignUpScreen = () => {
     try {
       // sign up
 
-      router.push({ pathname: '/SignIn' });
+      router.push({ pathname: '/SignInScreen' });
     } catch (e) {
       Alert.alert('Oops', (e as Error).message);
     }
   };
 
   const onSignInPress = () => {
-    router.push({ pathname: '/SignIn' });
+    router.push({ pathname: '/auth/SignInScreen' });
   };
 
   const onTermsOfUsePressed = () => {
@@ -43,8 +42,8 @@ const SignUpScreen = () => {
   };
 
   return (
-    <Theme name="light">
-      <YStack flex={1} alignItems="center" justifyContent="center">
+    <Theme name="dark">
+      <YStack flex={1} alignItems="center" justifyContent="center" padding={20}>
         <Text style={styles.title}>Create an account</Text>
 
         <CustomInput
@@ -110,9 +109,7 @@ const SignUpScreen = () => {
         </Text>
 
         <SocialSignInButtons />
-        <Link href="/sign-in" style={styles.link}>
-          Have an account? Sign in
-        </Link>
+        <CustomButton text="Have an account? Sign in" onPress={onSignInPress} type="TERTIARY" />
       </YStack>
     </Theme>
   );

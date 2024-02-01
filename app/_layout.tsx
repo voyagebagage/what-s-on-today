@@ -2,9 +2,10 @@ import { useFonts } from 'expo-font';
 import { Slot, SplashScreen } from 'expo-router';
 import React, { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { TamaguiProvider, View } from 'tamagui';
+import { TamaguiProvider, Theme, View } from 'tamagui';
 
 import config from '../tamagui.config';
+import useAuthStore from './stores/authStore';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,12 +27,14 @@ export default function RootLayout() {
   }, [loaded]);
 
   if (!loaded) return null;
-
   return (
     <TamaguiProvider config={config}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Slot />
-      </GestureHandlerRootView>
+      <Theme name="dark">
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Slot />
+          {/* {isAuthenticated ? <AuthLayout /> : <DrawerLayout />} */}
+        </GestureHandlerRootView>
+      </Theme>
     </TamaguiProvider>
   );
 }

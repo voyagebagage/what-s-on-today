@@ -36,6 +36,12 @@ const config = createTamagui({
       text: 'black',
     },
   },
+  dark: {
+    color: {
+      background: '#0E1117',
+      text: 'white',
+    },
+  },
   defaultFont: 'body',
   animations,
   shouldAddPrefersColorThemes: true,
