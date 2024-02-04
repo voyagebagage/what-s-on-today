@@ -14,17 +14,18 @@ export const unstable_settings = {
   initialRouteName: '(drawer)',
 };
 
+export const nhost = new NhostClient({
+  subdomain: 'yzsauenihltxnfkreksl',
+  region: 'ap-southeast-1',
+  clientStorageType: 'expo-secure-storage',
+  clientStorage: SecureStore,
+});
 export default function RootLayout() {
   const [loaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   });
-  const nhost = new NhostClient({
-    subdomain: 'yzsauenihltxnfkreksl',
-    region: 'ap-southeast-1',
-    clientStorageType: 'expo-secure-storage',
-    clientStorage: SecureStore,
-  });
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();

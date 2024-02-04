@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
-import CustomInput from '../components/customInput';
-import CustomButton from '../components/customButton';
-import SocialSignInButtons from '../components/socialSignInButtons';
+import CustomInput from '../../components/customInput';
+import CustomButton from '../../components/customButton';
+import SocialSignInButtons from '../../components/socialSignInButtons';
 import { useForm } from 'react-hook-form';
 import { router } from 'expo-router';
 import { Theme, YStack } from 'tamagui';
+import { useSignUpEmailPassword } from '@nhost/react';
+import { nhost } from 'app/_layout';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 // type AuthNavigationParamList = {
@@ -15,16 +17,51 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 
 const SignUpScreen = () => {
   const { control, handleSubmit, watch } = useForm();
+  // const [isSuccess, setIsSuccess] = useState(false);
   const pwd = watch('password');
   //   const navigation = useNavigation();
+  const { signUpEmailPassword, isLoading } = useSignUpEmailPassword();
 
   const onRegisterPressed = async (data: any) => {
-    const { name, email, password } = data;
+    if (isLoading) {
+      return;
+    }
+    const { name, email, password } = await data;
+    // const { isSuccess, error, needsEmailVerification } = await signUpEmailPassword(
+    //   email,
+    //   password,
+    //   {
+    //     displayName: name.trim(),
+    //     metadata: { name },
+    //   }
+    // );
+    // console.log([
+    //   'isSuccess0 ' + isSuccess + ' error ' + error?.message + ' email ' + needsEmailVerification,
+    // ]);
+    // if (error) {
+    //   Alert.alert('ohhh', error.message);
+    // }
+    // if (isSuccess) {
+    //   router.push('/auth/SignInScreen/SignInScreen');
+    // }
+    // if (needsEmailVerification) {
+    //   Alert.alert('verify your email in the followed link');
+    // }
     try {
       // sign up
+      const res = await nhost.auth.signUp({ email, password });
+      const { session, error } = res;
 
-      router.push({ pathname: '/SignInScreen' });
+      console.log(session, error);
+      if (error) {
+        Alert.alert('ohhh', error.message);
+      }
+      if (session) {
+        Alert.alert('Welcome', 'verify your email in the followed link');
+        router.push('/auth/SignInScreen/SignInScreen');
+      }
     } catch (e) {
+      console.log(e);
       Alert.alert('Oops', (e as Error).message);
     }
   };
@@ -43,7 +80,7 @@ const SignUpScreen = () => {
 
   return (
     <Theme name="dark">
-      <YStack flex={1} alignItems="center" justifyContent="center" padding={20}>
+      <YStack flex={1} alignItems="center" justifyContent="center" paddingHorizontal={20}>
         <Text style={styles.title}>Create an account</Text>
 
         <CustomInput
@@ -95,7 +132,10 @@ const SignUpScreen = () => {
           }}
         />
 
-        <CustomButton text="Register" onPress={handleSubmit(onRegisterPressed)} />
+        <CustomButton
+          text={isLoading ? 'Register...' : 'Register'}
+          onPress={handleSubmit(onRegisterPressed)}
+        />
 
         <Text style={styles.text}>
           By registering, you confirm that you accept our{' '}
