@@ -1,5 +1,5 @@
 import { Link, Stack } from 'expo-router';
-import { YStack } from 'tamagui';
+import { YStack, Heading } from 'tamagui';
 
 import { Container, Main, Subtitle, Title } from '../tamagui.config';
 

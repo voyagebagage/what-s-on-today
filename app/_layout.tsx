@@ -7,6 +7,11 @@ import { TamaguiProvider, Theme, View } from 'tamagui';
 import config from '../tamagui.config';
 import { NhostClient, NhostProvider } from '@nhost/react';
 import * as SecureStore from 'expo-secure-store';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+// Create a client
+const queryClient = new QueryClient();
+
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
@@ -34,14 +39,16 @@ export default function RootLayout() {
 
   if (!loaded) return null;
   return (
-    <NhostProvider nhost={nhost}>
-      <TamaguiProvider config={config}>
-        <Theme name="dark">
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <Slot />
-          </GestureHandlerRootView>
-        </Theme>
-      </TamaguiProvider>
-    </NhostProvider>
+    <TamaguiProvider config={config}>
+      <Theme name="dark">
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <QueryClientProvider client={queryClient}>
+            <NhostProvider nhost={nhost}>
+              <Slot />
+            </NhostProvider>
+          </QueryClientProvider>
+        </GestureHandlerRootView>
+      </Theme>
+    </TamaguiProvider>
   );
 }

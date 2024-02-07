@@ -20,50 +20,49 @@ const SignUpScreen = () => {
   // const [isSuccess, setIsSuccess] = useState(false);
   const pwd = watch('password');
   //   const navigation = useNavigation();
-  const { signUpEmailPassword, isLoading } = useSignUpEmailPassword();
+  const { signUpEmailPassword, isLoading, isSuccess } = useSignUpEmailPassword();
 
   const onRegisterPressed = async (data: any) => {
     if (isLoading) {
       return;
     }
-    const { name, email, password } = await data;
-    // const { isSuccess, error, needsEmailVerification } = await signUpEmailPassword(
-    //   email,
-    //   password,
-    //   {
-    //     displayName: name.trim(),
-    //     metadata: { name },
-    //   }
-    // );
-    // console.log([
-    //   'isSuccess0 ' + isSuccess + ' error ' + error?.message + ' email ' + needsEmailVerification,
-    // ]);
-    // if (error) {
-    //   Alert.alert('ohhh', error.message);
-    // }
-    // if (isSuccess) {
-    //   router.push('/auth/SignInScreen/SignInScreen');
-    // }
-    // if (needsEmailVerification) {
-    //   Alert.alert('verify your email in the followed link');
-    // }
-    try {
-      // sign up
-      const res = await nhost.auth.signUp({ email, password });
-      const { session, error } = res;
-
-      console.log(session, error);
-      if (error) {
-        Alert.alert('ohhh', error.message);
-      }
-      if (session) {
-        Alert.alert('Welcome', 'verify your email in the followed link');
-        router.push('/auth/SignInScreen/SignInScreen');
-      }
-    } catch (e) {
-      console.log(e);
-      Alert.alert('Oops', (e as Error).message);
+    const { name, email, password } = data;
+    const { needsEmailVerification, error } = await signUpEmailPassword(email, password, {
+      displayName: name.trim(),
+      metadata: { name },
+    });
+    console.log({
+      isSuccess,
+      error,
+      needsEmailVerification,
+    });
+    if (error) {
+      Alert.alert('ohhh', error.message);
     }
+    if (needsEmailVerification) {
+      Alert.alert('verify your email in the followed link');
+    }
+    if (isSuccess) {
+      router.push('/auth/SignInScreen/SignInScreen');
+    }
+
+    // try {
+    //   // sign up
+    //   const res = await nhost.auth.signUp({ email, password });
+    //   const { session, error } = res;
+
+    //   console.log(session, error);
+    //   if (error) {
+    //     Alert.alert('ohhh', error.message);
+    //   }
+    //   if (session) {
+    //     Alert.alert('Welcome', 'verify your email in the followed link');
+    //     router.push('/auth/SignInScreen/SignInScreen');
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    //   Alert.alert('Oops', (e as Error).message);
+    // }
   };
 
   const onSignInPress = () => {

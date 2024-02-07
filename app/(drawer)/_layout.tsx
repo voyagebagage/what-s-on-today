@@ -1,6 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer';
-import useAuthStore from '../stores/authStore'; // import the store
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignInScreen from '../auth/SignInScreen/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
@@ -47,8 +46,27 @@ const DrawerLayout = () => {
             ),
           }}
         />
+        <Drawer.Screen
+          name="events"
+          options={{
+            headerTitle: 'KP Events',
+            drawerLabel: 'Events',
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name="newspaper-outline" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="profile"
+          options={{
+            headerTitle: 'Profile',
+            drawerLabel: 'Profile',
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name="newspaper-outline" size={size} color={color} />
+            ),
+          }}
+        />
       </Drawer>
-      {/* <Slot /> */}
     </>
   );
 };
