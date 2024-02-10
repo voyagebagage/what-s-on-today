@@ -4,8 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchUsers } from '../graphql/users/queries';
 import { User } from '@nhost/react';
 import { Separator, Spinner } from 'tamagui';
-import { UsersData } from 'app/types';
-// import { User } from './types';
 
 function UserScreen() {
   const {
@@ -16,7 +14,7 @@ function UserScreen() {
     queryKey: ['users'],
     queryFn: fetchUsers,
   });
-  // const usersArray = users ? Object.values(users).flat() : [];
+
   if (isLoading) {
     return (
       <View style={styles.center}>

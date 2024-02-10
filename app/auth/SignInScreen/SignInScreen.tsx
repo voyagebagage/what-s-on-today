@@ -22,7 +22,7 @@ const SignInScreen = () => {
       return;
     }
     const { email, password } = data;
-    const { error, needsEmailVerification } = await signInEmailPassword(email, password);
+    const { error, needsEmailVerification, isSuccess } = await signInEmailPassword(email, password);
     // console.log([
     //   'isSuccess0 ' + isSuccess + ' error ' + error?.message + ' email ' + needsEmailVerification,
     // ]);
@@ -32,9 +32,9 @@ const SignInScreen = () => {
     if (needsEmailVerification) {
       Alert.alert('verify your email in the followed link');
     }
-    // if (isSuccess) {
-    //   router.push('/auth/SignInScreen/SignInScreen');
-    // }
+    if (isSuccess) {
+      router.push('/auth/SignInScreen/SignInScreen');
+    }
     setLoading(true);
 
     // Sign in

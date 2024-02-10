@@ -5,6 +5,7 @@ import SignInScreen from '../auth/SignInScreen/SignInScreen';
 import SignUpScreen from '../auth/SignUpScreen';
 import { useAuthenticationStatus } from '@nhost/react';
 import { Spinner } from 'tamagui';
+import { DrawerToggleButton } from '@react-navigation/drawer';
 
 const DrawerLayout = () => {
   const Stack = createNativeStackNavigator();
@@ -25,7 +26,13 @@ const DrawerLayout = () => {
   }
   return (
     <>
-      <Drawer>
+      <Drawer
+        screenOptions={{
+          //to change the possition and the burger menu
+          drawerPosition: 'right',
+          headerRight: () => <DrawerToggleButton />,
+          headerLeft: () => null,
+        }}>
         <Drawer.Screen
           name="index"
           options={{
