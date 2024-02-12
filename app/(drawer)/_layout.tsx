@@ -54,17 +54,17 @@ const DrawerLayout = () => {
           }}
         />
         <Drawer.Screen
-          name="events"
+          name="events/index"
           options={{
             headerTitle: 'KP Events',
             drawerLabel: 'Events',
             drawerIcon: ({ size, color }) => (
-              <Ionicons name="newspaper-outline" size={size} color={color} />
+              <Ionicons name="add-circle-sharp" size={size} color={color} />
             ),
           }}
         />
         <Drawer.Screen
-          name="profile"
+          name="profile/index"
           options={{
             headerTitle: 'Profile',
             drawerLabel: 'Profile',
