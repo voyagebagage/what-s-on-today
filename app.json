@@ -3,20 +3,17 @@
     "name": "workshop-today",
     "slug": "workshop-today",
     "version": "1.0.0",
-
-    "scheme": "workshop-today",
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/favicon.png"
     },
+    "scheme": "fb855449506346114",
     "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -37,3 +34,8 @@
     }
   }
 }
+
+// "package": "com.anonymous.workshopToday"
+
+
+// "bundleIdentifier": "com.anonymous.workshop-today"

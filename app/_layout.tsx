@@ -5,9 +5,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { TamaguiProvider, Theme, View } from 'tamagui';
 
 import config from '../tamagui.config';
-import { NhostClient, NhostProvider } from '@nhost/react';
+// import { NhostClient, NhostProvider } from '@nhost/react';
 import * as SecureStore from 'expo-secure-store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from './hooks/auth';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -18,13 +19,12 @@ export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(drawer)',
 };
+// give me an array of all the days of the week
 
-export const nhost = new NhostClient({
-  subdomain: 'yzsauenihltxnfkreksl',
-  region: 'ap-southeast-1',
-  clientStorageType: 'expo-secure-storage',
-  clientStorage: SecureStore,
-});
+// const nhostClient = new NhostClient({
+//   baseURL: 'https://backend-1b9b3c7b.nhost.app',
+// });
+
 export default function RootLayout() {
   const [loaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
@@ -41,13 +41,15 @@ export default function RootLayout() {
   return (
     <TamaguiProvider config={config}>
       <Theme name="dark">
+        {/* <NhostProvider client={nhostClient}> */}
         <GestureHandlerRootView style={{ flex: 1 }}>
           <QueryClientProvider client={queryClient}>
-            <NhostProvider nhost={nhost}>
+            <AuthProvider>
               <Slot />
-            </NhostProvider>
+            </AuthProvider>
           </QueryClientProvider>
         </GestureHandlerRootView>
+        {/* </NhostProvider> */}
       </Theme>
     </TamaguiProvider>
   );

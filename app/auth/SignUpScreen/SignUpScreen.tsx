@@ -6,8 +6,8 @@ import SocialSignInButtons from '../../components/socialSignInButtons';
 import { useForm } from 'react-hook-form';
 import { router } from 'expo-router';
 import { Theme, YStack } from 'tamagui';
-import { useSignUpEmailPassword } from '@nhost/react';
-import { nhost } from 'app/_layout';
+// import { useSignUpEmailPassword } from '@nhost/react';
+// import { nhost } from 'app/_layout';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 // type AuthNavigationParamList = {
@@ -20,31 +20,31 @@ const SignUpScreen = () => {
   // const [isSuccess, setIsSuccess] = useState(false);
   const pwd = watch('password');
   //   const navigation = useNavigation();
-  const { signUpEmailPassword, isLoading, isSuccess } = useSignUpEmailPassword();
+  // const { signUpEmailPassword, isLoading, isSuccess } = useSignUpEmailPassword();
 
   const onRegisterPressed = async (data: any) => {
-    if (isLoading) {
-      return;
-    }
+    // if (isLoading) {
+    //   return;
+    // }
     const { name, email, password } = data;
-    const { needsEmailVerification, error } = await signUpEmailPassword(email, password, {
-      displayName: name.trim(),
-      metadata: { name },
-    });
-    console.log({
-      isSuccess,
-      error,
-      needsEmailVerification,
-    });
-    if (error) {
-      Alert.alert('ohhh', error.message);
-    }
-    if (needsEmailVerification) {
-      Alert.alert('verify your email in the followed link');
-    }
-    if (isSuccess) {
-      router.push('/auth/SignInScreen/SignInScreen');
-    }
+    // const { needsEmailVerification, error } = await signUpEmailPassword(email, password, {
+    //   displayName: name.trim(),
+    //   metadata: { name },
+    // });
+    // console.log({
+    //   isSuccess,
+    //   error,
+    //   needsEmailVerification,
+    // });
+    // if (error) {
+    //   Alert.alert('ohhh', error.message);
+    // }
+    // if (needsEmailVerification) {
+    //   Alert.alert('verify your email in the followed link');
+    // }
+    // if (isSuccess) {
+    //   router.push('/auth/SignInScreen/SignInScreen');
+    // }
 
     // try {
     //   // sign up
@@ -131,10 +131,10 @@ const SignUpScreen = () => {
           }}
         />
 
-        <CustomButton
+        {/* <CustomButton
           text={isLoading ? 'Register...' : 'Register'}
           onPress={handleSubmit(onRegisterPressed)}
-        />
+        /> */}
 
         <Text style={styles.text}>
           By registering, you confirm that you accept our{' '}
